@@ -1,0 +1,53 @@
+{
+	"$schema": "https://schemas.elgato.com/streamdeck/plugins/manifest.json",
+	"UUID": "com.maxrodrigo.dark-mode",
+	"Name": "Dark Mode",
+	"Version": "1.0.0.0",
+	"Author": "Max Rodrigo",
+	"Description": "Switch between light and dark mode on macOS and Windows with one key. The key always shows the current mode, even when it changes from system settings or an automatic schedule. Free and open source.",
+	"URL": "https://github.com/maxrodrigo/streamdeck-dark-mode",
+	"SupportURL": "https://github.com/maxrodrigo/streamdeck-dark-mode/issues",
+	"Category": "Dark Mode",
+	"CategoryIcon": "imgs/plugin/category-icon",
+	"Icon": "imgs/plugin/marketplace",
+	"CodePath": "bin/plugin.js",
+	"SDKVersion": 3,
+	"Software": {
+		"MinimumVersion": "7.1"
+	},
+	"OS": [
+		{
+			"Platform": "mac",
+			"MinimumVersion": "12"
+		},
+		{
+			"Platform": "windows",
+			"MinimumVersion": "10"
+		}
+	],
+	"Nodejs": {
+		"Version": "24"
+	},
+	"Actions": [
+		{
+			"UUID": "com.maxrodrigo.dark-mode.toggle",
+			"Name": "Toggle Dark Mode",
+			"Tooltip": "Switch between light and dark appearance.",
+			"Icon": "imgs/actions/toggle/icon",
+			"Controllers": [
+				"Keypad"
+			],
+			"DisableAutomaticStates": true,
+			"States": [
+				{
+					"Image": "imgs/actions/toggle/key-light",
+					"Name": "Light"
+				},
+				{
+					"Image": "imgs/actions/toggle/key-dark",
+					"Name": "Dark"
+				}
+			]
+		}
+	]
+}
