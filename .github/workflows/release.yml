@@ -1,0 +1,43 @@
+name: release
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: googleapis/release-please-action@v5
+        id: release
+        with:
+          release-type: node
+
+      - uses: actions/checkout@v7
+        if: ${{ steps.release.outputs.release_created }}
+
+      - uses: actions/setup-node@v7
+        if: ${{ steps.release.outputs.release_created }}
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Test, build and pack
+        if: ${{ steps.release.outputs.release_created }}
+        run: |
+          npm ci
+          npm test
+          # Stream Deck requires {major}.{minor}.{patch}.{build}.
+          npm run pack -- --version ${{ steps.release.outputs.version }}.0
+
+      - name: Attach plugin to release
+        if: ${{ steps.release.outputs.release_created }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload ${{ steps.release.outputs.tag_name }} com.maxrodrigo.dark-mode.streamDeckPlugin
