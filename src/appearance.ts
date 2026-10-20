@@ -1,7 +1,9 @@
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 
-const run = promisify(execFile);
+const exec = promisify(execFile);
+// Without windowsHide, every poll would flash a console window on Windows.
+const run = (file: string, args: string[]) => exec(file, args, { windowsHide: true });
 
 type Appearance = {
 	isDark(): Promise<boolean>;
@@ -28,12 +30,16 @@ const macos: Appearance = {
 // Same values the Windows Settings app writes.
 const PERSONALIZE = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize";
 
+export function parseRegDword(stdout: string): number {
+	const match = /REG_DWORD\s+0x([0-9a-f]+)/i.exec(stdout);
+	if (!match) throw new Error(`Unexpected reg output: ${stdout}`);
+	return parseInt(match[1], 16);
+}
+
 const windows: Appearance = {
 	async isDark() {
 		const { stdout } = await run("reg", ["query", PERSONALIZE, "/v", "AppsUseLightTheme"]);
-		const match = /REG_DWORD\s+0x([0-9a-f]+)/i.exec(stdout);
-		if (!match) throw new Error(`Unexpected reg output: ${stdout}`);
-		return parseInt(match[1], 16) === 0;
+		return parseRegDword(stdout) === 0;
 	},
 	async setDark(dark) {
 		const light = dark ? "0" : "1";
@@ -54,4 +60,5 @@ function forPlatform(): Appearance {
 	}
 }
 
-export const { isDark, setDark } = forPlatform();
+export const isDark = () => forPlatform().isDark();
+export const setDark = (dark: boolean) => forPlatform().setDark(dark);

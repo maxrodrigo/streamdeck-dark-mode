@@ -10,7 +10,8 @@
 	"scripts": {
 		"build": "rollup -c",
 		"watch": "rollup -c -w --watch.onEnd=\"streamdeck restart com.maxrodrigo.dark-mode\"",
-		"pack": "npm run build && streamdeck pack com.maxrodrigo.dark-mode.sdPlugin"
+		"pack": "npm run build && streamdeck pack com.maxrodrigo.dark-mode.sdPlugin",
+		"test": "node --test"
 	},
 	"dependencies": {
 		"@elgato/streamdeck": "^3.0.2"
