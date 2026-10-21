@@ -1,12 +1,14 @@
 # Dark Mode for Stream Deck
 
+![Dark Mode for Stream Deck](media/thumbnail.png)
+
 Toggle dark mode on macOS and Windows with a single Stream Deck key. Free and open source.
 
-![Light and dark key states](preview.gif)
+![Light and dark key states](media/preview.gif)
 
 ## Features
 
-- One key switches between light and dark mode.
+- One key switches between light and dark mode, with a short animation on the key.
 - The key always shows the current mode, even when it changes from system settings or an automatic schedule.
 - Works in Multi Actions: choose Light or Dark for a step to set that mode instead of toggling.
 
