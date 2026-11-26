@@ -34,7 +34,7 @@ jobs:
           npm ci
           npm test
           # Stream Deck requires {major}.{minor}.{patch}.{build}.
-          npm run pack -- --version ${{ steps.release.outputs.version }}.0
+          npm run pack -- --version ${{ steps.release.outputs.version }}.0 --no-update-check
 
       - name: Attach plugin to release
         if: ${{ steps.release.outputs.release_created }}
