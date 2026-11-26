@@ -49,7 +49,7 @@ npx streamdeck link com.maxrodrigo.dark-mode.sdPlugin
 npm run watch
 ```
 
-`npm run pack` builds the installer. To attach a debugger, add `"Debug": "enabled"` to `Nodejs` in `manifest.json`.
+`npm test`, `npm run build` and `npm run validate` are what CI runs. `npm run pack` builds the installer. To attach a debugger, add `"Debug": "enabled"` to `Nodejs` in `manifest.json`.
 
 ## License
 
