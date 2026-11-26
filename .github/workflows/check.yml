@@ -20,4 +20,4 @@ jobs:
           npm ci
           npm test
           npm run build
-          npm run validate
+          npm run validate -- --no-update-check
